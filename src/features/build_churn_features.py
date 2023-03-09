@@ -36,7 +36,10 @@
 
 # COMMAND ----------
 
-#!pip3 install openpyxl
+!pip3 install openpyxl
+
+
+# COMMAND ----------
 
 import pandas as pd
 import matplotlib.pyplot as plt
