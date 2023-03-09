@@ -41,13 +41,13 @@ features_spark_df = customer_features_df.drop(*_drop)
 # MAGIC ### Load from Model Registry
 # MAGIC 
 # MAGIC ```
-# MAGIC logged_model = 'models:/churn_prediction/production'
+# MAGIC logged_model = 'models:/churn_prediction_<MEU-EMAIL>/production'
 # MAGIC loaded_model = mlflow.pyfunc.load_model(logged_model)
 # MAGIC ```
 
 # COMMAND ----------
 
-prediction = fs.score_batch(model_uri="models:/churn_prediction/production", df=features_spark_df)
+prediction = fs.score_batch(model_uri="models:/churn_prediction_<MEU-EMAIL>/production", df=features_spark_df)
 display(prediction)
 
 # COMMAND ----------
@@ -61,4 +61,4 @@ result = prediction.select('CustomerID','prediction')\
 
 # COMMAND ----------
 
-result.write.mode('append').format("delta").partitionBy('dtUpdate').saveAsTable("diamond.churn_prediction")
+result.write.mode('append').format("delta").partitionBy('dtUpdate').saveAsTable("diamond.churn_prediction_<MEU-EMAIL>")

@@ -166,7 +166,7 @@ X_val_processed = pipeline.transform(X_val)
 # Enable automatic logging of input samples, metrics, parameters, and models
 mlflow.sklearn.autolog(log_input_examples=True, silent=True)
 
-with mlflow.start_run(run_name="xgboost_v4") as mlflow_run:
+with mlflow.start_run(run_name="xgboost_v4_<MEU-EMAIL>") as mlflow_run:
     model.fit(X_train, y_train, classifier__eval_set=[(X_val_processed, y_val)], classifier__verbose=False)
     
     # Training metrics are logged by MLflow autologging
@@ -196,7 +196,7 @@ feature_lookups = [FeatureLookup(table_name=feature_store_db_name_and_table,
                                  feature_names=feature_names, 
                                  lookup_key=f"{key}")]
 
-with mlflow.start_run(run_name="xgboost_v5") as mlflow_run:
+with mlflow.start_run(run_name="xgboost_v5_<MEU-EMAIL>") as mlflow_run:
 
     # Create a training set
     training_set = fs.create_training_set(
@@ -217,7 +217,7 @@ with mlflow.start_run(run_name="xgboost_v5") as mlflow_run:
                  'train_model',
                   flavor=mlflow.sklearn,
                   training_set=training_set,
-                  registered_model_name='churn_prediction')
+                  registered_model_name='churn_prediction_<MEU-EMAIL>')
     
     # Training metrics are logged by MLflow autologging
     # Log metrics for the validation set
@@ -268,6 +268,6 @@ if shap_enabled:
 
 # COMMAND ----------
 
-#run_id = mlflow.search_runs(filter_string='tags.mlflow.runName = "xgboost_v4"').iloc[0].run_id
-#model_name = "churn_prediction"
-#model_version = mlflow.register_model(f"runs:/{run_id}/xgboost_v4", model_name)
+#run_id = mlflow.search_runs(filter_string='tags.mlflow.runName = "xgboost_v4_<MEU-EMAIL>"').iloc[0].run_id
+#model_name = "churn_prediction_<MEU-EMAIL>"
+#model_version = mlflow.register_model(f"runs:/{run_id}/xgboost_v4_<MEU-EMAIL>", model_name)
